@@ -1,0 +1,1 @@
+from .contato_view import *
