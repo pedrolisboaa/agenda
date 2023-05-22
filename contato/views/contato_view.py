@@ -1,6 +1,12 @@
 from django.shortcuts import render
-
+from contato.models import Contato
 # Create your views here.
 
 def index(request):
-    return render(request, 'contato/index.html')
+    contatos = Contato.objects.all()
+    
+    context = {
+        'contatos': contatos,
+    }
+    
+    return render(request, 'contato/index.html', context)
