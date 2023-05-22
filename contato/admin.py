@@ -12,15 +12,18 @@ class ContatoAdmin(admin.ModelAdmin):
         'segundo_nome',
         'email',
         #'data_criacao',
-        'categoria',)
+        'categoria',
+        'visivel',
+        )
     ordering = '-id',
     search_fields = 'id', 'Nome'
     list_per_page = 30
     list_max_show_all = 400
     list_filter = 'categoria',
     list_display_links = 'id', 'primeiro_nome',
+    list_editable = 'visivel',
     
     
     @admin.register(Categoria)
     class CategoriaAdmin(admin.ModelAdmin):
-        list_display = ('nome',)
+        list_display = ('nome', )
