@@ -59,3 +59,4 @@ def contato(request, contato_id):
     }
     
     return render(request, 'contato/contato.html', context)
+
