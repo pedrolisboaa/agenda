@@ -5,16 +5,27 @@
 
     <div class="form-wrapper">
         <h2>Contato</h2>
-        <form action="" method="POST" enctype="multipart/form-data">
+        <form action="{% url 'contato:criacao' %}" method="POST" enctype="multipart/form-data">
 
             {% csrf_token %}
+
+        
+            <!--Aqui é pegando o formulário toda de uma vez  {{ form.as_p }}   -->
+            <div class="form-content"></div>
+                {% for campo in form  %}
+                
+                    <div class="form-group">
+                    <label for="{{ campo.id_for_label }}"> {{campo.label.capitalize}} </label>
+                    {{campo}}
+                    {{campo.errors}}
+                    </div>
+                
+                {% endfor %}
+            </div>   
+           
+
             
-            <div class="form-content">
-                <div class="form-group">
-                <label for="id_primeiro_nome">LABEL</label>
-                <input type="text" name="primeiro_nome" maxlength="255" id="id_primeiro_nome">
-                </div>
-            </div>
+            
 
             <div class="form-content">
                 <div class="form-group">
