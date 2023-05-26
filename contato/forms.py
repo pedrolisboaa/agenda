@@ -7,10 +7,18 @@ from .models import Contato
 class ContatoForm(forms.ModelForm):
     class Meta:
         model = Contato
-        fields = 'primeiro_nome', 'segundo_nome', 'telefone', 'email', 'descricao', 'imagem', 'categoria',
+        fields = 'primeiro_nome', 'segundo_nome', 'telefone', 'email', 'imagem', 'categoria', 'descricao'
+   
+        widgets = {
+            'primeiro_nome': forms.PasswordInput(
+                attrs={
+                    'class': 'classe-a classe-b',
+                    'placeholder': 'Infome seu nome',
+                }
+            ),
+        }
 
     def clean(self):
-
         cleaned_data = self.cleaned_data
 
         self.add_error(
