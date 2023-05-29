@@ -13,7 +13,32 @@
         <p><b>Data de criação:</b> {{contato.data_criacao}}</p>
         <p><b>Descrição:</b> {{contato.descricao}}</p>
         <p><b>Categoria:</b> {{contato.categoria.nome}}</p>
+
+        {% if contato.imagem %}
+            <p>
+                <img src="{{ contato.imagem.url }}" alt="{{ 'contato.primeiro_nome' }} {{ 'contato.segundo_nome' }}">
+            </p>
+        {% endif %}
         
+        
+        <div class="contact-links">
+            <a class="btn btn-link" href="{% url 'contato:atualizacao' contato.pk%}">Atualizar</a>
+
+            <form action=" {% url 'contato:deletar' contato.id %} " method="POST">
+                {% csrf_token %}
+
+                {% if confirmacao == 'nao'  %}
+                    <input type="hidden" name="confirmacao" value="sim">
+                    <button class="btn btn-link btn-delete " type="submit">Confirmar?</button>    
+                {% else %}
+                    <button class="btn btn-link btn-delete " type="submit">Deletar</button>
+                {% endif %}
+                
+            </form>
+        </div>
+
+        
+
     </div>
 
 

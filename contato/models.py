@@ -16,8 +16,8 @@ class Categoria(models.Model):
 
 
 class Contato(models.Model):
-    primeiro_nome = models.CharField(max_length=100)
-    segundo_nome = models.CharField(max_length=150)
+    primeiro_nome = models.CharField(verbose_name='Nome', max_length=100)
+    segundo_nome = models.CharField(max_length=150, verbose_name='Sobrenome')
     telefone = models.CharField(max_length=50)
     email = models.EmailField(max_length=256, blank=True)
     data_criacao = models.DateTimeField(default=timezone.now)
