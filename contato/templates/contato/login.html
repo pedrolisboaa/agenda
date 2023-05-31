@@ -1,0 +1,40 @@
+{% extends 'global/base.html' %}
+
+{% block conteudo %}
+
+    <div class="form-wrapper">
+
+        {% if user.is_authenticated %}
+            <p>Você está logado como {{user.username.capitalize}}</p>
+            <p>Clique<a href="{% url 'contato:logout' %}">aqui</a> para sair!</p>
+            
+        {% else %}
+        
+            <form action="{{ form_action }}" method="POST">
+                {% csrf_token %}
+                <div class="form-content"></div>
+                    {% for campo in form  %}
+                        <div class="form-group">
+                        <label for="{{ campo.id_for_label }}"> {{campo.label}} </label>
+                        {{campo}}   
+                        {{ campo.errors }}
+                        </div>
+                    {% endfor %}
+                </div>   
+            
+                <div class="form-content">
+                    <div class="form-group">
+                    <button class="btn" type="submit">Logar</button>
+                    </div>
+                </div>
+
+        </form>
+
+
+        {% endif %}
+
+        
+    
+    </div>
+    
+{% endblock  %}

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index, contato, buscar, criacao, atualizacao, deletar, registro
+from .views import index, contato, buscar, criacao, atualizacao, deletar, registro, login_view, logout_view
 
 app_name = 'contato'
 
@@ -15,6 +15,8 @@ urlpatterns = [
 
     # usuario
 
-    path('usuario/registro', registro, name='registro')
+    path('usuario/registro/', registro, name='registro'),
+    path('usuario/login/', login_view, name='login'),
+    path('usuario/logout/', logout_view, name='logout'),
     
 ]

@@ -9,14 +9,7 @@
 <body>
 
     {% include "global/partials/header.html" %}
-
-    {% if messages %}
-        {% for message in messages %}
-            <div class="message" {{message.tags}}>
-                {{message}}
-            </div>
-        {% endfor %}
-    {% endif %}
+    {% include "global/partials/mensagem.html" %}
 
     <main class="content">
         {% block conteudo %}{% endblock conteudo %}  

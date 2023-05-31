@@ -76,3 +76,7 @@ class RegistroForm(UserCreationForm):
             )
 
         return email
+
+
+class AtualizarRegistro(forms.ModelForm):
+    ...
