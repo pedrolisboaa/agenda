@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from contato.forms import RegistroForm
+from contato.forms import RegistroForm, AtualizacaoRegistro
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
@@ -43,3 +43,17 @@ def login_view(request):
 def logout_view(request):
     auth.logout(request)
     return redirect('contato:login')
+
+
+def atualizar_usuario(request):
+    form = AtualizacaoRegistro(instance=request.user)
+    if request.method != 'POST':
+        return render(request,'contato/registro.html', {'form': form})
+    
+
+    form = AtualizacaoRegistro(data=request.POST, instance=request.user)
+    if not form.is_valid():
+        return render(request,'contato/registro.html', {'form': form})
+    
+    form.save()
+    return render(request,'contato/registro.html', {'form': form})
