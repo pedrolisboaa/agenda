@@ -3,6 +3,7 @@ from contato.forms import RegistroForm, AtualizacaoRegistro
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 
 def registro(request):
     form = RegistroForm()
@@ -40,11 +41,12 @@ def login_view(request):
     return render(request,'contato/login.html', {'form': form})
 
 
+@login_required(login_url='contato:login')
 def logout_view(request):
     auth.logout(request)
     return redirect('contato:login')
 
-
+@login_required(login_url='contato:login')
 def atualizar_usuario(request):
     form = AtualizacaoRegistro(instance=request.user)
     if request.method != 'POST':

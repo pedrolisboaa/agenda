@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from contato.forms import ContatoForm
 from contato.models import Contato
 
+
 app_name = 'contato'
 
-
+@login_required(login_url='contato:login')
 def criacao(request):
     form_action = reverse('contato:criacao')
 
@@ -31,6 +33,7 @@ def criacao(request):
     return render(request, 'contato/criacao.html', contexto)
 
 
+@login_required(login_url='contato:login')
 def atualizacao(request, contato_id):
     contato = get_object_or_404(Contato, pk=contato_id, visivel=True)
     form_action = reverse('contato:atualizacao', args=(contato_id,))
@@ -56,7 +59,7 @@ def atualizacao(request, contato_id):
 
     return render(request, 'contato/criacao.html', contexto)
 
-
+@login_required(login_url='contato:login')
 def deletar(request, contato_id):
     contato  = get_object_or_404(
         Contato, pk=contato_id, visivel=True
