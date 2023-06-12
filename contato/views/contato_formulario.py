@@ -20,7 +20,9 @@ def criacao(request):
             }
 
         if form.is_valid():
-            contato = form.save()
+            contato = form.save(commit=False)
+            contato.owner = request.user
+            contato.save()
             return redirect('contato:atualizacao', contato_id=contato.pk)
 
         return render(request, 'contato/criacao.html', contexto)
@@ -35,7 +37,7 @@ def criacao(request):
 
 @login_required(login_url='contato:login')
 def atualizacao(request, contato_id):
-    contato = get_object_or_404(Contato, pk=contato_id, visivel=True)
+    contato = get_object_or_404(Contato, pk=contato_id, visivel=True, owner=request.user)
     form_action = reverse('contato:atualizacao', args=(contato_id,))
 
     if request.method == 'POST':
@@ -62,7 +64,8 @@ def atualizacao(request, contato_id):
 @login_required(login_url='contato:login')
 def deletar(request, contato_id):
     contato  = get_object_or_404(
-        Contato, pk=contato_id, visivel=True
+        Contato, pk=contato_id, visivel=True,
+        owner=request.user
     )
 
     confirmacao = request.POST.get('confirmacao', 'nao')
